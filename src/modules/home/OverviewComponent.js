@@ -63,18 +63,30 @@ const Input = styled.input`
 `;
 
 const AddTransactionView = () => {
+  const [amount, setAmount] = useState();
+  const [desc, setDesc] = useState();
+  const [type, setType] = useState("EXPENSE");
+
   return(
     <AddTransactionContainer>
-    <input placeholder="Ammount"/>
+    <input placeholder="Amount" value={amount} onChange={(e)=> setAmount(e.target.value)} />
     <input placeholder="Description"/>
     <RadioBox>
-        <Input type="radio" id ="expanse" name="type" value="EXPENSE"/> 
-        <label htmlfor="expanse">Expanse</label>
-        <Input type="radio" id ="income" name="type" value="INCOME"/> 
+        <Input type="radio"
+         id ="expense"
+         name="type"
+         value="EXPENSE"
+         checked={type==="EXPENSE"} /> 
+        <label htmlfor="expanse">Expense</label>
+        <Input type="radio"
+         id ="income"
+         name="type"
+         value="INCOME"
+         checked={type==="INCOME"} /> 
         <label htmlfor="income">Income</label>
     </RadioBox>
     <AddTransaction>Add Transaction</AddTransaction>
-    </AddTransactionContainer>
+    </AddTransactionContainer>  
   )
 }
 
@@ -86,11 +98,11 @@ const OverviewComponent = (props) => {
           {/* Overview components */}
           <BalanceBox>
           Balance: $10000
-          <AddTransaction onClick={()=>toggleAddTxn()}>{isAddTxnVisible?"Cancel":"Add"}</AddTransaction>
+          <AddTransaction onClick={()=>toggleAddTxn(!isAddTxnVisible)}>{isAddTxnVisible?"Cancel":"Add"}</AddTransaction>
           </BalanceBox>
           {isAddTxnVisible && <AddTransactionView />}
         </Container>
     );
 };
 
-export default OverviewComponent
+export default OverviewComponent 
